@@ -1,0 +1,11 @@
+@media (max-width: 600px) {
+
+  .search-bar {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .search-bar form {
+    flex-direction: column;
+  }
+}
