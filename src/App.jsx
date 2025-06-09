@@ -1,31 +1,34 @@
 import { useState } from 'react'
 import './App.css'
+import SortMovies from './components/SortMovies'
+import SearchBar from './components/SearchBar'
 
 const App = () => {
   return (
     <div className="App">
+
       <header className='App-header'>
         <h1>Flixster 🎥</h1>
-        <div>
 
+        <div className='search-and-sort'>
+          <SearchBar />
+          <SortMovies />
         </div>
       </header>
 
-      <body>
-        <main>
+      <main>
 
 
 
 
 
-        </main>
+      </main>
+      
+      <footer>
 
-        <footer>
 
 
-
-        </footer>
-      </body>
+      </footer>
     </div>
   )
 }

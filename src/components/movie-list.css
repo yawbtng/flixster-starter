@@ -1,0 +1,7 @@
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 150px);
+    grid-auto-flow: row;
+    margin: 25px 15px;
+}
+

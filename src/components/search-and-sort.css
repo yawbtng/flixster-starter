@@ -3,9 +3,15 @@
   .search-bar {
     flex-direction: column;
     gap: 10px;
+    margin-right: 10px;
   }
 
   .search-bar form {
     flex-direction: column;
   }
+}
+
+.sort-movies {
+  min-width: 40px;
+  margin-left: 10px;;
 }

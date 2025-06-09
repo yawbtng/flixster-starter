@@ -1,5 +1,13 @@
 @media (max-width: 600px) {
   .movie-card {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid lightgray;
+     box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2);
   }
+}
+
+.movie-card img {
+    width: 100%;
 }
