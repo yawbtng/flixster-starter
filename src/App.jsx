@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import SortMovies from './components/SortMovies'
 import SearchBar from './components/SearchBar'
+import MovieList from './components/MovieList'
 
 const App = () => {
   return (
@@ -17,13 +18,9 @@ const App = () => {
       </header>
 
       <main>
-
-
-
-
-
+        <MovieList />
       </main>
-      
+
       <footer>
 
 
