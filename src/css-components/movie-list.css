@@ -1,9 +1,7 @@
 .movie-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 275px);
+    display: flex;
     grid-auto-flow: row;
     justify-content: center;
-    transform: scale(1.1);
-    margin-top: 150px;
+    flex-flow: row wrap;
+    margin: 10px 5px;
 }
-

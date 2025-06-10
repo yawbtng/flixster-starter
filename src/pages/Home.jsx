@@ -12,27 +12,35 @@ const Home = () => {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+
+// loading from movie api
+  const loadMovies = async () => {
+    try {
+      const popularMovies = await getPopularMovies(page)
+      if (!popularMovies) {
+        setHasMore(false);
+      } else {
+        const parsedMovies = popularMovies.map((movie) => parseMovieData(movie))
+        setMovies([...movies, ...parsedMovies])
+      }
+    } catch (err) {
+      console.log(err)
+      setError("Failed to load movies..")
+    } finally {
+      setLoading(false)
+    }
+  }
 
   useEffect(() => {
-    const loadPopularMovies = async () => {
-      try {
-        const popularMovies = await getPopularMovies()
-        const parsedMovies = popularMovies.map((movie) => parseMovieData(movie))
-        setMovies(parsedMovies)
-      } catch (err) {
-        console.log(err)
-        setError("Failed to load movies..")
-      } finally {
-        setLoading(false)
-      }
-    }
+    loadMovies();
+  }, [page])
 
-    loadPopularMovies();
-  }, [])
-
-
-
-  
+  // loading more pages
+  const handleLoadMore = () => {
+    setPage((page) => page + 1);
+  }
 
   return (
     <div className="Home">
@@ -46,11 +54,18 @@ const Home = () => {
         </div>
       </header>
 
-      <main>
+      <main className='main-section'>
         {loading ? (<div className='loading'><h2>Loading...</h2></div>) : (<MovieList movies={movies}/>)}
+
+        <div className='loading-movies'>
+          {hasMore && !loading && (<button onClick={handleLoadMore} className='load-more-movies'>Load More...</button>)}
+          {!hasMore && <p>No more items to load</p>}
+        </div>
       </main>
 
+    
       <footer>
+
       </footer>
     </div>
   )
