@@ -4,6 +4,7 @@
   }
 }
 
+
 .movie-card img {
     width: 100%;
 
@@ -16,5 +17,6 @@
   display: flex;
   margin: 25px 15px;
   border-radius: 1%;
-  width: 15%;
+  width: 400px; 
+  min-width: 200px; 
 }

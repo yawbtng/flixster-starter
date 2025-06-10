@@ -12,8 +12,12 @@ const Home = () => {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [moviesFound, setMoviesFound] = useState(false);
 
 // loading from movie api
   const loadMovies = async () => {
@@ -23,7 +27,12 @@ const Home = () => {
         setHasMore(false);
       } else {
         const parsedMovies = popularMovies.map((movie) => parseMovieData(movie))
-        setMovies([...movies, ...parsedMovies])
+
+        if (page > 1) {
+          setMovies([...movies, ...parsedMovies])
+        } else {
+          setMovies((movies) => parsedMovies);
+        }
       }
     } catch (err) {
       console.log(err)
@@ -33,13 +42,45 @@ const Home = () => {
     }
   }
 
+  // search movies
+  const searchForMovies = async (query) => {
+    const searchedMovies = await searchMovies(query);
+    try {  
+      if (!searchedMovies) {
+        setMoviesFound(false);
+      } else {
+        setMoviesFound(true);
+        const parsedMovies = searchedMovies.map((movie) => parseMovieData(movie))
+        setMovies((movies) => parsedMovies)
+      }
+    } catch (err) {
+        console.log(err)
+        setError("Failed to search movies...")
+    } finally {
+        setLoading(false);
+      }
+  }
+
   useEffect(() => {
-    loadMovies();
-  }, [page])
+    if(searchQuery.trim() === "" || !searchQuery) {
+      console.log("loaded movies")
+        loadMovies();
+    }
+    else {
+      searchForMovies(searchQuery)
+    }
+    
+  }, [page, searchQuery])
 
   // loading more pages
   const handleLoadMore = () => {
     setPage((page) => page + 1);
+  }
+
+
+  // searching for content
+  const handleSearchChange = (search) => {
+    setSearchQuery(search.target.value);
   }
 
   return (
@@ -49,18 +90,20 @@ const Home = () => {
         <h1>Flixster 🎥</h1>
 
         <div className='search-and-sort'>
-          <SearchBar />
+          <SearchBar onSearchSubmit={handleSearchChange}/>
           <SortMovies />
+          
         </div>
       </header>
 
       <main className='main-section'>
-        {loading ? (<div className='loading'><h2>Loading...</h2></div>) : (<MovieList movies={movies}/>)}
+        
+          {loading ? (<div className='loading'><h2>Loading...</h2></div>) : (<MovieList movies={movies}/>)}
+          <div className='loading-movies'>
+            {hasMore && !loading && (<button onClick={handleLoadMore} className='load-more-movies'>Load More...</button>)}
+            {!hasMore && <p>No more items to load</p>}
+          </div>
 
-        <div className='loading-movies'>
-          {hasMore && !loading && (<button onClick={handleLoadMore} className='load-more-movies'>Load More...</button>)}
-          {!hasMore && <p>No more items to load</p>}
-        </div>
       </main>
 
     
