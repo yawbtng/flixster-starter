@@ -1,4 +1,4 @@
-import "./search-and-sort.css";
+import '../css-components/search-and-sort.css'
 
 const SearchBar = () => {
 

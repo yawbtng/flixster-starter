@@ -1,33 +1,12 @@
-import { useState } from 'react'
 import './App.css'
-import SortMovies from './components/SortMovies'
-import SearchBar from './components/SearchBar'
-import MovieList from './components/MovieList'
+import Home from './pages/Home.jsx'
 
 const App = () => {
   return (
     <div className="App">
-
-      <header className='App-header'>
-        <h1>Flixster 🎥</h1>
-
-        <div className='search-and-sort'>
-          <SearchBar />
-          <SortMovies />
-        </div>
-      </header>
-
-      <main>
-        <MovieList />
-      </main>
-
-      <footer>
-
-
-
-      </footer>
+      <Home />
     </div>
   )
 }
 
-export default App
+export default App;

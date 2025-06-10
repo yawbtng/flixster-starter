@@ -1,16 +1,13 @@
-import './movie-list.css'
+import '../css-components/movie-list.css'
 import MovieCard from './MovieCard'
 
-const MovieList = () => {
+const MovieList = ({movies}) => {
 
     return (
         <div className='movie-grid'>
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
+            {movies.map((movie) => (
+                <MovieCard key={movie.id} content={movie} />
+            ))}
         </div>
     )
 }

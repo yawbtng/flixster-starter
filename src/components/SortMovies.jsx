@@ -1,4 +1,4 @@
-import "./search-and-sort.css";
+import '../css-components/search-and-sort.css'
 
 const SortMovies = () => {
     return (
@@ -8,7 +8,6 @@ const SortMovies = () => {
                 <option>Popularity (Descending)</option>
                 <option>Release Date (Descending)</option>
                 <option>Rating (Descending)</option>
-                
             </select>
         </div>
     )

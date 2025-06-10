@@ -6,15 +6,14 @@
 
 .movie-card img {
     width: 100%;
-    border-radius: 15%;
+
 }
 
 .movie-card {
   flex-direction: column;
-  border: 2px solid black;
-  border-radius: 10%;
+  border: 2px solid lightgray;
   box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2);
   display: flex;
   margin: 25px 15px;
-  
+  border-radius: 1%;
 }
