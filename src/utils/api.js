@@ -13,3 +13,9 @@ export const searchMovies = async(query) => {
     const data = await response.json();
     return data.results;
 }
+
+export const getUpcomingMovies = async (x) => {
+    const response = await fetch(`${BASE_URL}/movie/upcoming?api_key=${API_KEY}&include_adult=false&language=en-US&page=${x}`);
+    const data = await response.json()
+    return data.results;
+}

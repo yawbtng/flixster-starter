@@ -28,3 +28,11 @@
   border-radius: 15%;
   background-color: red;
 }
+
+.current-playing {
+  background-color: red;
+}
+
+.current-playing:hover {
+  background-color: rgb(115, 0, 0);
+}

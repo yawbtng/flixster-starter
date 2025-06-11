@@ -5,19 +5,14 @@ const SearchBar = ({onSearchSubmit}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSearchSubmit(e.target.value)
-    }
-
-    const handleClear = (e) => {
-        e.preventDefault();
-        onSearchSubmit("");
+        onSearchSubmit(e.target.input.value)
     }
 
     return (
-        <form className="search-bar">
-            <input type='text' onChange={onSearchSubmit} placeholder='Search for movies...'/>
-            <button type='submit' onClick={handleSubmit}>Search</button>
-            <button onClick={handleClear}>Clear</button>
+        <form className="search-bar" onSubmit={handleSubmit} >
+            <input type='text' id='input' placeholder='Search for movies...'/>
+            <button type='submit'>Search</button>
+            <button type='reset' >Clear</button>
         </form>
     )
 }

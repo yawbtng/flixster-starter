@@ -5,24 +5,31 @@ import SearchBar from '../components/SearchBar'
 import MovieList from '../components/MovieList'
 import movieData from "../data/data.js";
 import parseMovieData from '../utils/helpers.js'
-import { searchMovies, getPopularMovies } from '../utils/api.js'
+import { searchMovies, getPopularMovies, getUpcomingMovies } from '../utils/api.js'
+
 
 const Home = () => {
-  
+  // state for rendering movies
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // state for loading additional movies
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
+  // state for searching for movies
   const [searchQuery, setSearchQuery] = useState("");
-  const [moviesFound, setMoviesFound] = useState(false);
+  const [moviesFound, setMoviesFound] = useState(true);
 
-// loading from movie api
-  const loadMovies = async () => {
+  // state for loading currently playing movies
+  const [isUpcoming, setUpcoming] = useState(false);
+
+// loading popular movies from movie API
+  const loadPopularMovies = async () => {
     try {
       const popularMovies = await getPopularMovies(page)
+      console.log(popularMovies)
       if (!popularMovies) {
         setHasMore(false);
       } else {
@@ -36,7 +43,26 @@ const Home = () => {
       }
     } catch (err) {
       console.log(err)
-      setError("Failed to load movies..")
+      setError("Failed to load popular movies..")
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // loading upcoming movies from movie API
+  const loadUpcomingMovies = async () => {
+    try {
+      const currMovies = await getUpcomingMovies(page)
+      console.log(currMovies)
+      const parsedMovies = currMovies.map((movie) => parseMovieData(movie))
+      if (page === 1) {
+        setMovies((movies) => parsedMovies);
+      } else if (page > 1){
+        setMovies([...movies, ...parsedMovies])
+      }
+    } catch (err) {
+      console.log(err)
+      setError("Failed to load current movies..")
     } finally {
       setLoading(false)
     }
@@ -63,24 +89,28 @@ const Home = () => {
 
   useEffect(() => {
     if(searchQuery.trim() === "" || !searchQuery) {
-      console.log("loaded movies")
-        loadMovies();
+        if (isUpcoming === false) {
+          loadPopularMovies();
+          console.log("displaying popular/current movies")
+        } else {
+          loadUpcomingMovies();
+          console.log("displaying upcoming movies")
+        }
     }
     else {
       searchForMovies(searchQuery)
     }
     
-  }, [page, searchQuery])
+  }, [page, searchQuery, isUpcoming])
 
   // loading more pages
   const handleLoadMore = () => {
     setPage((page) => page + 1);
   }
 
-
-  // searching for content
-  const handleSearchChange = (search) => {
-    setSearchQuery(search.target.value);
+  //
+  const handleCurrentlyPlaying = () => {
+    setUpcoming(!isUpcoming);
   }
 
   return (
@@ -90,20 +120,28 @@ const Home = () => {
         <h1>Flixster 🎥</h1>
 
         <div className='search-and-sort'>
-          <SearchBar onSearchSubmit={handleSearchChange}/>
+          <SearchBar onSearchSubmit={setSearchQuery}/>
           <SortMovies />
-          
+          <button onClick={handleCurrentlyPlaying} className={isUpcoming ? "current-playing" : ""}>{isUpcoming ? "Upcoming" : "Currently Playing"}</button>
         </div>
       </header>
 
       <main className='main-section'>
-        
-          {loading ? (<div className='loading'><h2>Loading...</h2></div>) : (<MovieList movies={movies}/>)}
+          {loading ? (
+            <div className='loading'><h2>Loading...</h2></div>
+          ) : (
+            moviesFound ? (
+              <MovieList movies={movies}/>
+            ) : (
+              <div className="no-movies-found">
+                <h2>No movies found...☹️</h2>
+              </div>
+            )
+          )}
           <div className='loading-movies'>
             {hasMore && !loading && (<button onClick={handleLoadMore} className='load-more-movies'>Load More...</button>)}
-            {!hasMore && <p>No more items to load</p>}
+            {!hasMore && <p>No more movies to load</p>}
           </div>
-
       </main>
 
     
