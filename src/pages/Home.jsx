@@ -25,6 +25,10 @@ const Home = () => {
   // state for loading currently playing movies
   const [isUpcoming, setUpcoming] = useState(false);
 
+
+  // state for sorting movies
+  const [sortType, setSortType] = useState("none");
+
 // loading popular movies from movie API
   const loadPopularMovies = async () => {
     try {
@@ -87,6 +91,49 @@ const Home = () => {
       }
   }
 
+
+  // sort movies
+  const sortMoviesBySortType = (moviesToSort, sortType) => {
+    let sortedMovies;
+    // sort by release date (descending)
+    if (sortType === "release") {
+      sortedMovies = [...moviesToSort].sort((movieA, movieB) => {
+        const dateA = new Date(movieA.release_date);
+        const dateB = new Date(movieB.release_date);
+        return dateB - dateA;
+      })
+    // sort by popularity (descending)
+    } else if (sortType === "popularity") {
+      sortedMovies = [...moviesToSort].sort((movieA, movieB) => {
+        return movieB.popularity - movieA.popularity;
+      })
+    // sort by rating (descending)
+    } else if (sortType === "rating") {
+      sortedMovies = [...moviesToSort].sort((movieA, movieB) => {
+        return movieB.rating - movieA.rating; 
+      })
+    } else if (sortType === "title") {
+        sortedMovies = [...moviesToSort].sort((movieA, movieB) => {
+            return movieA.title.localeCompare(movieB.title);
+        })
+    // no sorting implemented (default option)
+    } else {
+      sortedMovies = moviesToSort;
+    }
+    console.log("sort by " + sortType);
+    console.log(sortedMovies)
+    return sortedMovies;
+  }
+
+  useEffect(() => {
+    if (movies) {
+      const newSortedMovies = sortMoviesBySortType(movies, sortType)
+      setMovies(newSortedMovies)
+    }
+  }, [sortType])
+
+
+// loading movies and searching
   useEffect(() => {
     if(searchQuery.trim() === "" || !searchQuery) {
         if (isUpcoming === false) {
@@ -108,10 +155,11 @@ const Home = () => {
     setPage((page) => page + 1);
   }
 
-  //
-  const handleCurrentlyPlaying = () => {
+  // upcoming movies
+  const handleUpcoming = () => {
     setUpcoming(!isUpcoming);
   }
+
 
   return (
     <div className="Home">
@@ -121,8 +169,8 @@ const Home = () => {
 
         <div className='search-and-sort'>
           <SearchBar onSearchSubmit={setSearchQuery}/>
-          <SortMovies />
-          <button onClick={handleCurrentlyPlaying} className={isUpcoming ? "current-playing" : ""}>{isUpcoming ? "Upcoming" : "Currently Playing"}</button>
+          <SortMovies onSort={setSortType}/>
+          <button onClick={handleUpcoming} className={isUpcoming ? "current-playing" : ""}>{isUpcoming ? "Upcoming" : "Currently Playing"}</button>
         </div>
       </header>
 
