@@ -33,7 +33,7 @@ const Home = () => {
   // state for movie-modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [movieModalContent, setMovieModalContent] = useState();
-  const [movieModalId, setMovieModalId] = useState(123456);
+  const [movieModalId, setMovieModalId] = useState();
 
 // loading popular movies from movie API
   const loadPopularMovies = async () => {
@@ -130,9 +130,9 @@ const Home = () => {
     }
 
     // 
-  useEffect(() => {
-      getMovieSpecificContent(movieModalId)
-  }, [movieModalId])
+  const handleModelClick = (id) => {
+      getMovieSpecificContent(id)
+  }
 
 
   // sorting movies
@@ -176,7 +176,7 @@ const Home = () => {
         <h1>Flixster 🎥</h1>
 
         <div className='search-and-sort'>
-          <SearchBar onSearchSubmit={setSearchQuery}/>
+          <SearchBar setSearchQuery={setSearchQuery} searchQuery={searchQuery}/>
           <SortMovies onSort={setSortType}/>
           <button onClick={handleUpcoming} className={isUpcoming ? "current-playing" : ""}>{isUpcoming ? "Upcoming" : "Currently Playing"}</button>
         </div>
@@ -187,7 +187,7 @@ const Home = () => {
             <div className='loading'><h2>Loading...</h2></div>
           ) : (
             moviesFound ? (
-              <MovieList movies={movies} setMovieModalId={setMovieModalId} setIsModalOpen={setIsModalOpen} />
+              <MovieList movies={movies} setMovieModalId={setMovieModalId} setIsModalOpen={setIsModalOpen} handleModelClick={handleModelClick} />
             ) : (
               <div className="no-movies-found">
                 <h2>No movies found...☹️</h2>
@@ -202,7 +202,6 @@ const Home = () => {
           {isModalOpen && <MovieCardModal content={movieModalContent} handleOpen={setIsModalOpen} setMovieModalContent={setMovieModalContent} />}
       </main>
 
-    
       <footer>
 
       </footer>

@@ -9,26 +9,21 @@ const MovieCardModal = ({content, isOpen, handleOpen, setMovieModalContent}) => 
     
     const [videoInfo, setVideoInfo] = useState();
 
-    const loadMovieVidoeData = async (id) => {
-        const videoData = await getMovieTrailer(id);
-        console.log(videoData.results)
-        const trailer = videoData.results.filter(obj => obj.type.toLowerCase().includes("trailer"))
-        console.log("ALL TRAILERS")
-        console.log(trailer)
-        console.log("FIRST TRAILER")
-        console.log(trailer[0])
-        console.log(trailer[0].key)
-        setVideoInfo(trailer[0]) 
-    }
-
-    useEffect(() => {
+     useEffect(() => {
         if (content)    {
             loadMovieVidoeData(movie.id);
         }
-        console.log("OPENNNN")
-    }, [content, isOpen])
+    }, [content])
 
-    console.log(videoInfo)
+    const loadMovieVidoeData = async (id) => {
+        const videoData = await getMovieTrailer(id);
+        const trailer = videoData.results.filter(obj => obj.type.toLowerCase().includes("trailer"))
+        setVideoInfo(trailer[0]) 
+    }
+
+   
+
+    // console.log(videoInfo)
 
     const getMovieGenresFromDetails = (genres) => {
         let genreNames = [];
@@ -51,15 +46,13 @@ const MovieCardModal = ({content, isOpen, handleOpen, setMovieModalContent}) => 
 
     const handleModalClick = () => {
         handleOpen(false);
-        setMovieModalContent("Loading...");
+        setMovieModalContent(null);
     }
 
-    console.log("hahhahahahhahahahhaha")
-    console.log(videoInfo)
 
     return (
-
-        <div className='modal-container' onClick={handleModalClick}>
+        <>
+       {content && <div className='modal-container' onClick={handleModalClick}>
             <div className='modal'> 
                 <div className='modal-content'>
                     <span className='close' onClick={handleModalClick}>&times;</span>
@@ -69,42 +62,19 @@ const MovieCardModal = ({content, isOpen, handleOpen, setMovieModalContent}) => 
                     <p><b>Runtime:</b> {convertMovieRuntime(movie.runtime)}</p>
                     <p><b>Overview:</b> {movie.overview}</p>
                     <p><b>Genres:</b> {getMovieGenresFromDetails(movie.genres).join(" | ")}</p>
-                    {/* movieModalContent && 
+                    {videoInfo && 
                         <iframe 
-                            width="560"
-                            height="315"
+                            width="660"
+                            height="415"
                             src={`https://www.youtube.com/embed/${videoInfo.key}`}
                             title={videoInfo.name}
-                            frameborder="0"
-                            allowFullScreen /> */}
+                            allowFullScreen /> }
                 </div>
             </div>
-        </div>
-        // <div className='modal-container' onClick={handleModalClick}>
-        //     <div className='modal' >
-        //         <div className='modal-content'>
-        //             <span className='close' onClick={handleModalClick}>&times;</span>
-        //             <h1>{movie.title}</h1>
-        //             <img src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} alt={movie.title}/>
-        //             <h3>Release Date: {movieDate(movie.release_date)}</h3>
-        //             <p><b>Overview:</b> {movie.overview}</p>
-        //             <p><b>Runtime:</b> {convertMovieRuntime(movie.runtime)}</p>
-        //             {/* <p><b>Genres:</b> {getMovieGenresFromDetails(movie.genres).join(" | ")}</p> */}
-        //             <h4>Genres:</h4>
-
-        //             {/* <iframe 
-        //                 width="560"
-        //                 height="315"
-        //                 src={`https://www.youtube.com/embed/${videoInfo}`}
-        //                 title={videoInfo.name}
-        //                 frameborder="0"
-        //                 allowFullScreen
-        //             /> */}
-
-        //         </div>
-        //     </div>
-        // </div>
+        </div>}
+        </>
     )
+    
 }
 
 export default MovieCardModal;
