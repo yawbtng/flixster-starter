@@ -5,7 +5,9 @@ import SearchBar from '../components/SearchBar'
 import MovieList from '../components/MovieList'
 import movieData from "../data/data.js";
 import parseMovieData from '../utils/helpers.js'
-import { searchMovies, getPopularMovies, getUpcomingMovies } from '../utils/api.js'
+import { searchMovies, getPopularMovies, getUpcomingMovies, getMovieGenres, getMovieSpecificInfo } from '../utils/api.js'
+import MovieCardModal from "../components/MovieCardModal.jsx"
+
 
 
 const Home = () => {
@@ -25,15 +27,18 @@ const Home = () => {
   // state for loading currently playing movies
   const [isUpcoming, setUpcoming] = useState(false);
 
-
   // state for sorting movies
   const [sortType, setSortType] = useState("none");
+
+  // state for movie-modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [movieModalContent, setMovieModalContent] = useState();
+  const [movieModalId, setMovieModalId] = useState(123456);
 
 // loading popular movies from movie API
   const loadPopularMovies = async () => {
     try {
       const popularMovies = await getPopularMovies(page)
-      console.log(popularMovies)
       if (!popularMovies) {
         setHasMore(false);
       } else {
@@ -57,7 +62,6 @@ const Home = () => {
   const loadUpcomingMovies = async () => {
     try {
       const currMovies = await getUpcomingMovies(page)
-      console.log(currMovies)
       const parsedMovies = currMovies.map((movie) => parseMovieData(movie))
       if (page === 1) {
         setMovies((movies) => parsedMovies);
@@ -102,12 +106,7 @@ const Home = () => {
         const dateB = new Date(movieB.release_date);
         return dateB - dateA;
       })
-    // sort by popularity (descending)
-    } else if (sortType === "popularity") {
-      sortedMovies = [...moviesToSort].sort((movieA, movieB) => {
-        return movieB.popularity - movieA.popularity;
-      })
-    // sort by rating (descending)
+    // sort by rating aka vote average (descending)
     } else if (sortType === "rating") {
       sortedMovies = [...moviesToSort].sort((movieA, movieB) => {
         return movieB.rating - movieA.rating; 
@@ -120,11 +119,23 @@ const Home = () => {
     } else {
       sortedMovies = moviesToSort;
     }
-    console.log("sort by " + sortType);
-    console.log(sortedMovies)
     return sortedMovies;
   }
 
+
+    // getting the movie genres for the modal
+  const getMovieSpecificContent = async (id) => {
+        const movieSpecific = await getMovieSpecificInfo(id)
+        setMovieModalContent(movieSpecific)
+    }
+
+    // 
+  useEffect(() => {
+      getMovieSpecificContent(movieModalId)
+  }, [movieModalId])
+
+
+  // sorting movies
   useEffect(() => {
     if (movies) {
       const newSortedMovies = sortMoviesBySortType(movies, sortType)
@@ -138,10 +149,8 @@ const Home = () => {
     if(searchQuery.trim() === "" || !searchQuery) {
         if (isUpcoming === false) {
           loadPopularMovies();
-          console.log("displaying popular/current movies")
         } else {
           loadUpcomingMovies();
-          console.log("displaying upcoming movies")
         }
     }
     else {
@@ -159,7 +168,6 @@ const Home = () => {
   const handleUpcoming = () => {
     setUpcoming(!isUpcoming);
   }
-
 
   return (
     <div className="Home">
@@ -179,7 +187,7 @@ const Home = () => {
             <div className='loading'><h2>Loading...</h2></div>
           ) : (
             moviesFound ? (
-              <MovieList movies={movies}/>
+              <MovieList movies={movies} setMovieModalId={setMovieModalId} setIsModalOpen={setIsModalOpen} />
             ) : (
               <div className="no-movies-found">
                 <h2>No movies found...☹️</h2>
@@ -190,6 +198,8 @@ const Home = () => {
             {hasMore && !loading && (<button onClick={handleLoadMore} className='load-more-movies'>Load More...</button>)}
             {!hasMore && <p>No more movies to load</p>}
           </div>
+
+          {isModalOpen && <MovieCardModal content={movieModalContent} handleOpen={setIsModalOpen} setMovieModalContent={setMovieModalContent} />}
       </main>
 
     

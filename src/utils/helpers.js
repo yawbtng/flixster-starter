@@ -8,8 +8,8 @@ const parseMovieData = (movie) => {
         "release_date" : movie.release_date,
         "rating" : movie.vote_average,
         "backdrop" : movie.backdrop_path,
-        "popularity" : movie.popularity
-
+        "popularity" : movie.popularity,
+        "genre_ids" : movie.genre_ids
     }
 }
 

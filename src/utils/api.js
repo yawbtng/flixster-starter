@@ -19,3 +19,21 @@ export const getUpcomingMovies = async (x) => {
     const data = await response.json()
     return data.results;
 }
+
+export const getMovieGenres = async () => {
+    const response = await fetch(`${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=en`);
+    const data = await response.json()
+    return data;
+}
+
+export const getMovieTrailer = async(movieID) => {
+    const response = await fetch (`${BASE_URL}/movie/${movieID}/videos?api_key=${API_KEY}&language=en-US`)
+    const data = await response.json()
+    return data;
+}
+
+export const getMovieSpecificInfo = async(movieID) => {
+    const response = await fetch (`${BASE_URL}/movie/${movieID}?api_key=${API_KEY}&language=en-US`)
+    const data = await response.json()
+    return data;
+}
