@@ -1,17 +1,17 @@
 @media (max-width: 600px) {
 
   .search-bar {
-    flex-direction: column;
-    gap: 10px;
-    margin-right: 10px;
+    flex-direction: row;
+    gap: 1vw;
+    margin-right: 1vw;
   }
 
   .search-bar form {
-    flex-direction: column;
+    flex-direction: row;
   }
 }
 
 .sort-movies {
-  min-width: 40px;
-  margin-left: 10px;;
+  min-width: 4vw;
+  margin-left: 1vh;
 }

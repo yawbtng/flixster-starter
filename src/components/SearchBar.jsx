@@ -2,31 +2,28 @@ import '../css-components/search-and-sort.css'
 import { useState, useEffect } from 'react';
 
 const SearchBar = ({setSearchQuery, searchQuery}) => {
+    const [inputValue, setInputValue] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setSearchQuery(e.target.input.value);
     };
 
+    const handleChange = (event) => {
+    setInputValue(event.target.value);
+  };
 
-    const handleClear = (e) => {
-        e.preventDefault();
+    const handleClear = () => {
+        setInputValue('');
         setSearchQuery("")
     }
-
-    const handleSearchInput = (e) => {
-        e.preventDefault()
-        setSearchQuery(e.target.value)
-    }
-
-    
 
 
     return (
         <form className="search-bar" onSubmit={handleSubmit} onReset={handleClear} >
-            <input type='text' id='input' placeholder='Search for movies...' value={searchQuery} onChange={handleSearchInput}/>
+            <input type='text' id='input' placeholder='Search for movies...' value={inputValue} onChange={handleChange}/>
             <button type='submit'>Search</button>
-            <button type='reset' >Clear</button>
+            <button type='reset' onClick={handleClear} >Clear</button>
         </form>
     )
 }

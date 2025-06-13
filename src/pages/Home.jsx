@@ -206,9 +206,9 @@ const Home = () => {
 
       <main className='main-section'>
         <div className='entire-content'>
-          <div>
+          <div className='sidebar'>
               <button className='sidebar-btn'>☰</button>
-              <Sidebar favorites={setIsFavoriteClicked} watched={setIsWatchedClicked} home={setIsHomeClicked}/>
+              <Sidebar  favorites={setIsFavoriteClicked} watched={setIsWatchedClicked} home={setIsHomeClicked}/>
           </div>
             <div>
                 {loading ? (

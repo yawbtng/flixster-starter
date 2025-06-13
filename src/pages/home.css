@@ -8,26 +8,25 @@
   background-color: #282c34;
   display: flex;
   flex-wrap: wrap;
-  flex-flow:row;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   color: white;
   padding: 5px 0px 20px 0px;
   font-size: 1.2em;
+  position:sticky
 }
 
 .main-section {
   justify-content: center;
-
 }
-
 
 .search-and-sort {
   display: flex;
-  justify-content:space-evenly;
+  justify-content: space-evenly;
   flex-wrap: wrap;
   transform: scale(1.5);
+  margin: 0 20vw;
 }
 
 .load-more-movies {
@@ -48,9 +47,9 @@
 
 .home-footer {
   position: fixed;
-  bottom: 0;      
-  left: 0;  
-  width: 100%;  
+  bottom: 0;
+  left: 0;
+  width: 100%;
   background-color: #282c34;
   display: flex;
   flex-wrap: wrap;
@@ -65,7 +64,68 @@
 }
 
 .sidebar-btn {
-  size: 2%;
   font-size: 40px;
   margin: 10px;
+}
+
+.sidebar {
+  z-index: 5;
+  height: 100vh;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+  .home-header {
+    font-size: 1em;
+    padding: 10px 0;
+  }
+
+  .search-and-sort {
+    transform: scale(1.2);
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .load-more-movies {
+    font-size: medium;
+    padding: 0.8em 0.4em;
+  }
+
+  .home-footer {
+    font-size: 2vh;
+    z-index: 10;
+  }
+
+  .sidebar-btn {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-header {
+    font-size: 0.9em;
+  }
+
+  .search-and-sort {
+    transform: scale(1);
+  }
+
+  .load-more-movies {
+    font-size: small;
+    padding: 0.6em 0.3em;
+  }
+
+  .home-footer {
+    font-size: 2.5vh;
+  }
+
+  .sidebar-btn {
+    font-size: 25px;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .sidebar {
+    display: none; /* Hides the element when the screen width is 600px or less */
+  }
 }
