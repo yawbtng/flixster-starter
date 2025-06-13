@@ -2,7 +2,7 @@
 
 Submitted by: **Yaw Boateng**
 
-Estimated time spent: **#28** hours spent in total
+Estimated time spent: **28** hours spent in total
 
 Deployed Application (**required**): [Flixster Deployed Site](https://flixster-starter-ljbl.onrender.com/)
 
@@ -28,7 +28,7 @@ Deployed Application (**required**): [Flixster Deployed Site](https://flixster-s
     - [X] Presses the Enter key
     - [X] Clicks the Submit/Search button
   - [X] Users can click the Clear button. When clicked:
-    -X[ ] Most recent search results are cleared from the text input field and the grid view and all current movies are displayed in a grid view
+    -[X] Most recent search results are cleared from the text input field and the grid view and all current movies are displayed in a grid view
 - [X] **Design Features**
   - [X] Website implements all of the following accessibility features:
     - [X] Semantic HTML
@@ -102,7 +102,7 @@ Deployed Application (**required**): [Flixster Deployed Site](https://flixster-s
 
 `TODO://` Add the embedded URL code to your animated app walkthrough below, `ADD_EMBEDDED_CODE_HERE`. Make sure the video or gif actually renders and animates when viewing this README. Ensure your walkthrough showcases the presence and/or functionality of all features you implemented above (check them off as you film!). Pay attention to any **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS** checkboxes listed above to ensure graders see the full functionality of your website! (🚫 Remove this paragraph after adding walkthrough video)
 
-`ADD_EMBEDDED_CODE_HERE`
+<div style="position: relative; padding-bottom: 54.37499999999999%; height: 0;"><iframe src="https://www.loom.com/embed/2d19bff5039e4821ba62f1db0d4d1d96?sid=a060111b-97e7-401c-b266-1fffc0d36984" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
 
 ### Reflection
 
@@ -116,7 +116,7 @@ I was able to finish all the core and stretch features. I think I would have lik
 
 * Reflect on your project demo, what went well? Were there things that maybe didn't go as planned? Did you notice something that your peer did that you would like to try next time?
 
-Add your response here
+At the very end of the video, the like and watched tabs did not work they way I intended. I utilized localStorage in the browser for this so for next steps I would check if the movie objexts are still in local storage. Next time I would to implement a smoother UI and a sidebar that can be opened and closed with an animation/button.
 
 ### Open-source libraries used
 
