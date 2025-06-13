@@ -202,8 +202,8 @@ const Home = () => {
           {isModalOpen && <MovieCardModal content={movieModalContent} handleOpen={setIsModalOpen} setMovieModalContent={setMovieModalContent} />}
       </main>
 
-      <footer>
-
+      <footer className='home-footer'>
+          <h2>©2025 Boateng Productions</h2>
       </footer>
     </div>
   )

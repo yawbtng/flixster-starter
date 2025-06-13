@@ -63,9 +63,9 @@ const MovieCardModal = ({content, isOpen, handleOpen, setMovieModalContent}) => 
                     <p><b>Overview:</b> {movie.overview}</p>
                     <p><b>Genres:</b> {getMovieGenresFromDetails(movie.genres).join(" | ")}</p>
                     {videoInfo && 
-                        <iframe 
-                            width="660"
-                            height="415"
+                        <iframe className='trailer-video'
+                            width="560"
+                            height="315"
                             src={`https://www.youtube.com/embed/${videoInfo.key}`}
                             title={videoInfo.name}
                             allowFullScreen /> }

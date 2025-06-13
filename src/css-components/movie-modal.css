@@ -20,6 +20,7 @@
    border: 1px solid #888;
    width: 50%; /* Could be more or less, depending on screen size */
    border-radius: 5%;
+   overflow-y: scroll;
 
    
 }
@@ -47,5 +48,6 @@
   display: flex; /* Helps in centering modal-content */
   justify-content: center;
   align-items: center;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 

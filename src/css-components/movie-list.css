@@ -3,5 +3,16 @@
     grid-auto-flow: row;
     justify-content: center;
     flex-flow: row wrap;
-    margin: 10px 5px;
+    margin: 0px 5px;
+}
+
+/* Define a fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Apply the animation to each card with a delay */
+.movie-grid .movie-card {
+  animation: fadeIn 0.5s ease-in; /* Apply the fade-in animation */
 }
