@@ -104,6 +104,8 @@ Deployed Application (**required**): [Flixster Deployed Site](https://flixster-s
 
 <div style="position: relative; padding-bottom: 54.37499999999999%; height: 0;"><iframe src="https://www.loom.com/embed/2d19bff5039e4821ba62f1db0d4d1d96?sid=a060111b-97e7-401c-b266-1fffc0d36984" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
 
+<div style="position: relative; padding-bottom: 54.37499999999999%; height: 0;"><iframe src="https://www.loom.com/embed/596b2d1c67e641c5b92fbccd863cbc1d?sid=fda6a7f2-25bb-4d95-8a30-64ad35a6d162" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+
 ### Reflection
 
 * Did the topics discussed in your labs prepare you to complete the assignment? Be specific, which features in your weekly assignment did you feel unprepared to complete?
