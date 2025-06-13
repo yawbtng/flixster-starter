@@ -48,6 +48,14 @@
   display: flex; /* Helps in centering modal-content */
   justify-content: center;
   align-items: center;
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+
 }
 
+.modal-content img {
+   width: clamp(20vw, 20em, 100vw);
+}
+
+.trailer-video {
+   width: clamp(30vw, 20em, 100vw);
+   height: clamp(30vh, 20em, 100vh);
+}

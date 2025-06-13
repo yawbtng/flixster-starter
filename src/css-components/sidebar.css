@@ -1,0 +1,36 @@
+/* Sidebar.css */
+.sidebar {
+    width: 100px;
+    height: 100vh;
+    background-color: gray;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px;
+  }
+  
+  .sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 50vh 0px;
+  }
+  
+  .sidebar nav ul li {
+    margin-bottom: 10px;
+  }
+  
+  .sidebar nav ul li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 8px 15px;
+    border-radius: 4px;
+  }
+  
+  .sidebar nav ul li a:hover {
+    background-color: #ddd;
+  }
+
+.navigation {
+  margin: auto 5px;
+}

@@ -7,6 +7,9 @@ import movieData from "../data/data.js";
 import parseMovieData from '../utils/helpers.js'
 import { searchMovies, getPopularMovies, getUpcomingMovies, getMovieGenres, getMovieSpecificInfo } from '../utils/api.js'
 import MovieCardModal from "../components/MovieCardModal.jsx"
+import Sidebar from '../components/Sidebar.jsx'
+import { useMovieContext } from '../context/MovieContext.jsx'
+
 
 
 
@@ -34,6 +37,12 @@ const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [movieModalContent, setMovieModalContent] = useState();
   const [movieModalId, setMovieModalId] = useState();
+
+  // sidebar navigation
+  const [isFavoriteClicked, setIsFavoriteClicked] = useState(false);
+  const [isWatchedClicked, setIsWatchedClicked] = useState(false);
+  const [isHomeClicked, setIsHomeClicked] = useState(true);
+
 
 // loading popular movies from movie API
   const loadPopularMovies = async () => {
@@ -143,6 +152,19 @@ const Home = () => {
     }
   }, [sortType])
 
+  // sidebar navigation
+  const {favorites} = useMovieContext();
+  const {watched} = useMovieContext();
+  useEffect (() => {
+    if (isFavoriteClicked) {
+      setMovies(favorites);
+    } else if (isWatchedClicked) {
+      setMovies(watched)
+    } else if (isHomeClicked) {
+      loadPopularMovies()
+    }
+
+  }, [isFavoriteClicked, isWatchedClicked, isHomeClicked])
 
 // loading movies and searching
   useEffect(() => {
@@ -183,23 +205,31 @@ const Home = () => {
       </header>
 
       <main className='main-section'>
-          {loading ? (
-            <div className='loading'><h2>Loading...</h2></div>
-          ) : (
-            moviesFound ? (
-              <MovieList movies={movies} setMovieModalId={setMovieModalId} setIsModalOpen={setIsModalOpen} handleModelClick={handleModelClick} />
-            ) : (
-              <div className="no-movies-found">
-                <h2>No movies found...☹️</h2>
-              </div>
-            )
-          )}
-          <div className='loading-movies'>
-            {hasMore && !loading && (<button onClick={handleLoadMore} className='load-more-movies'>Load More...</button>)}
-            {!hasMore && <p>No more movies to load</p>}
+        <div className='entire-content'>
+          <div>
+              <button className='sidebar-btn'>☰</button>
+              <Sidebar favorites={setIsFavoriteClicked} watched={setIsWatchedClicked} home={setIsHomeClicked}/>
           </div>
+            <div>
+                {loading ? (
+                  <div className='loading'><h2>Loading...</h2></div>
+                ) : (
+                  moviesFound ? (
+                    <MovieList movies={movies} setMovieModalId={setMovieModalId} setIsModalOpen={setIsModalOpen} handleModelClick={handleModelClick} />
+                  ) : (
+                    <div className="no-movies-found">
+                      <h2>No movies found...☹️</h2>
+                    </div>
+                  )
+                )}
+                <div className='loading-movies'>
+                  {hasMore && !loading && (<button onClick={handleLoadMore} className='load-more-movies'>Load More...</button>)}
+                  {!hasMore && <p>No more movies to load</p>}
+              </div>
+            </div>
 
-          {isModalOpen && <MovieCardModal content={movieModalContent} handleOpen={setIsModalOpen} setMovieModalContent={setMovieModalContent} />}
+            {isModalOpen && <MovieCardModal content={movieModalContent} handleOpen={setIsModalOpen} setMovieModalContent={setMovieModalContent} />}
+        </div>
       </main>
 
       <footer className='home-footer'>
